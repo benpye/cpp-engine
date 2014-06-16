@@ -50,12 +50,15 @@
       <File Name="src/gl/shader.h"/>
       <File Name="src/gl/window.cpp"/>
       <File Name="src/gl/window.h"/>
+      <File Name="src/gl/shader_program.h"/>
+      <File Name="src/gl/shader_program.cpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <VirtualDirectory Name="include">
     <File Name="include/iwindow.h"/>
     <File Name="include/ishader.h"/>
     <File Name="include/igraphics_device.h"/>
+    <File Name="include/ishader_program.h"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>

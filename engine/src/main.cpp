@@ -1,8 +1,10 @@
 #include <iostream>
 
 #include "gl/window.h"
-#include "gl/graphics_device.h"
-#include "gl/shader.h"
+
+#include <ishader.h>
+#include <ishader_program.h>
+#include <igraphics_device.h>
 
 #include <SDL2/SDL.h>
 
@@ -19,9 +21,9 @@ int main(int argc, char **argv)
 	
 	IGraphicsDevice *device = window->GetGraphicsDevice();
 	
-	IShader *shader = device->CreateShader();
+	IShader *vShader = device->CreateShader();
 	
-	shader->AddShader(
+	vShader->Load(
 	R"(#version 150
 
 in vec2 position;
@@ -29,37 +31,24 @@ in vec2 position;
 void main()
 {
     gl_Position = vec4(position, 0.0, 1.0);
-})", SHADER_VERTEX, "testvs.glsl");
+})", SHADER_VERTEX);
+	
+	IShader *pShader = device->CreateShader();
 
-	shader->AddShader(R"(#version 150
+	pShader->Load(R"(#version 150
 
 out vec4 outColor;
 
-void main()
+void notmain()
 {
     outColor = vec4(1.0, 1.0, 1.0, 1.0);
-})", SHADER_FRAGMENT, "testps.glsl");
+})", SHADER_FRAGMENT);
 	
-	IShader *shader2 = device->CreateShader();
+	IShaderProgram *shaderProgram = device->CreateShaderProgram();
+	shaderProgram->AttachShader(vShader);
+	shaderProgram->AttachShader(pShader);
+	shaderProgram->Link();
 	
-	shader2->AddShader(
-	R"(#version 150
-
-in vec2 position;
-
-void main()
-{
-    gl_Position = vec4(position, 0.0, 1.0);
-})", SHADER_VERTEX, "testvs.glsl");
-
-	shader2->AddShader(R"(#version 150
-
-out vec4 outColor;
-
-void main()
-{
-    outColor = vec4(1.0, 1.0, 1.0, 1.0);
-})", SHADER_FRAGMENT, "testps.glsl");
 	
 	while(true)
 	{

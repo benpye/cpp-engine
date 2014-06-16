@@ -13,6 +13,7 @@ public:
 	~GraphicsDevice();
 	
 	IShader *CreateShader();
+	IShaderProgram *CreateShaderProgram();
 	
 private:
 	SDL_GLContext context;

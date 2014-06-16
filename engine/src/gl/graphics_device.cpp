@@ -3,6 +3,7 @@
 
 #include "graphics_device.h"
 #include "shader.h"
+#include "shader_program.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_opengl.h>
@@ -132,4 +133,9 @@ GraphicsDevice::~GraphicsDevice()
 IShader *GraphicsDevice::CreateShader()
 {
 	return new Shader();
+}
+
+IShaderProgram *GraphicsDevice::CreateShaderProgram()
+{
+	return new ShaderProgram();
 }
